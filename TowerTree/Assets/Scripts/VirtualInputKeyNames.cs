@@ -4,4 +4,5 @@
     public const string FireDown = nameof(FireDown);
     public const string FireLeft = nameof(FireLeft);
     public const string FireRight = nameof(FireRight);
+    public const string Action = nameof(Action);
 }

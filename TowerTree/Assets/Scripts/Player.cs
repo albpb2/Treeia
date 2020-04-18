@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     [SerializeField] 
     private float _healthPoints = 100;
 
+    private int _waterCount;
+
     public void Hurt(float damage)
     {
         _healthPoints -= damage;
@@ -19,5 +21,11 @@ public class Player : MonoBehaviour
         {
             Debug.Log("You're dead");
         }
+    }
+
+    public void PickWater()
+    {
+        _waterCount++;
+        Debug.Log($"Water obtained. Available: {_waterCount}");
     }
 }
