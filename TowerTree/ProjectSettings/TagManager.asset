@@ -44,3 +44,6 @@ TagManager:
   - name: Characters
     uniqueID: 3488139659
     locked: 0
+  - name: GunShots
+    uniqueID: 1696706267
+    locked: 0
