@@ -4,10 +4,12 @@ using UnityEngine;
 public class EnemyGraphics : MonoBehaviour
 {
     private Player _player;
+    private Transform _parentTransform;
 
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Player>();
+        _parentTransform = gameObject.transform.parent;
     }
 
     void Update()
@@ -19,22 +21,22 @@ public class EnemyGraphics : MonoBehaviour
         {
             if (targetDirection.x <= 0)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0); // left
+                _parentTransform.rotation = Quaternion.Euler(0, 0, 0); // left
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 180); // left
+                _parentTransform.rotation = Quaternion.Euler(0, 0, 180); // left
             }
         }
         else
         {
             if (targetDirection.y <= 0)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90); // down
+                _parentTransform.rotation = Quaternion.Euler(0, 0, 90); // down
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 270); // up
+                _parentTransform.rotation = Quaternion.Euler(0, 0, 270); // up
             }
         }
     }
