@@ -106,6 +106,12 @@ public class MainCharacterGun : MonoBehaviour
                     _gunShotsPool[_currentGunShotIndex].SetActive(true);
                     StartCoroutine(DisableGunShot(_gunShotsPool[_currentGunShotIndex]));
                     _currentGunShotIndex = (_currentGunShotIndex + 1) % _gunShotsPoolSize;
+
+                    if (hit.transform.tag == Tags.Enemy)
+                    {
+                        var enemy = hit.transform.GetComponent<Enemy>();
+                        enemy.Hurt(_equippedGun.damage);
+                    }
                 }
 
                 _lastShotTime = Time.time;
