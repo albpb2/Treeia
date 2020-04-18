@@ -107,6 +107,8 @@ public class MainCharacterGun : MonoBehaviour
                     StartCoroutine(DisableGunShot(_gunShotsPool[_currentGunShotIndex]));
                     _currentGunShotIndex = (_currentGunShotIndex + 1) % _gunShotsPoolSize;
                 }
+
+                _lastShotTime = Time.time;
             }
         }
     }
