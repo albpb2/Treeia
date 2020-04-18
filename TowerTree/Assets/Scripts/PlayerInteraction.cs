@@ -36,11 +36,19 @@ public class PlayerInteraction : MonoBehaviour
         var collider = Physics2D.OverlapCircle(_playerCollider.transform.position, 2, _interactiveLayerMask);
         if (collider != null)
         {
-            if (collider.tag == Tags.Puddle)
+            switch (collider.tag)
             {
-                var puddle = collider.gameObject;
-                puddle.SetActive(false);
-                _player.PickWater();
+                case Tags.Puddle:
+                    var puddle = collider.gameObject;
+                    puddle.SetActive(false);
+                    _player.PickWater();
+                    break;
+                case Tags.Tree:
+                    _player.WaterTree();
+                    break;
+                default:
+                    Debug.Log("Unhandled player interaction");
+                    break;
             }
         }
     }
