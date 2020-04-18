@@ -4,15 +4,19 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] 
     private float _healthPoints = 5;
-    
-    private GameObject _player;
+    [SerializeField] 
+    private float _hitPoints;
+    [SerializeField] 
+    private Collider2D _hitZoneCollider;
+
+    private Player _player;
     private float _lastAttackTime = 0;
     private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag(Tags.Player);
+        _player = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Player>();
         _animator = GetComponent<Animator>();
     }
 
@@ -32,6 +36,14 @@ public class Enemy : MonoBehaviour
         if (_healthPoints <= 0)
         {
             Die();
+        }
+    }
+
+    public void HitPlayer()
+    {
+        if (_hitZoneCollider.IsTouching(_player.GetComponent<Collider2D>()))
+        {
+            _player.Hurt(_hitPoints);
         }
     }
 

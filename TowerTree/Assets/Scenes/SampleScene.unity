@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ecb08531690482c987d0b782597f462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthPoints: 0
+  _healthPoints: 100
 --- !u!1 &417299674
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.15, y: -0.03}
@@ -996,6 +996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthPoints: 5
+  _hitPoints: 10
+  _hitZoneCollider: {fileID: 1235801778}
 --- !u!4 &2003402740
 Transform:
   m_ObjectHideFlags: 0
