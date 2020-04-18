@@ -3,5 +3,5 @@
 public class Player : MonoBehaviour
 {
     [SerializeField] 
-    private float _healthPoints;
+    private float _healthPoints = 100;
 }
