@@ -1,25 +1,30 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    private TimerManager _timerManager;
     private LevelManager _levelManager;
 
     private int _currentPoints;
+    private bool _gameStarted;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _timerManager = FindObjectOfType(typeof(TimerManager)) as TimerManager;
-        _levelManager = FindObjectOfType(typeof(LevelManager)) as LevelManager;
+        base.Awake();
+        Debug.Log("Game manager awaking");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _levelManager.TargetWaterCount = 3;
-        _levelManager.SecondsPerWater = 20;
-        _timerManager.SetLevelTimer();
-        _timerManager.StartTimer();
+        Debug.Log("Game manager starting");
+        _levelManager = LevelManager.Instance;
+
+        if (!_gameStarted)
+        {
+            _levelManager.TargetWaterCount = 3;
+            _levelManager.SecondsPerWater = 20;
+            _levelManager.StartNextLevel();
+        }
     }
 
     public void AddPoints(int points)

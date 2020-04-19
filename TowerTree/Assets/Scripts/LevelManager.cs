@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
+    private int _currentLevel = -1;
+    
     public int TargetWaterCount { get; set; }
 
     public float SecondsPerWater { get; set; }
+
+    public int CurrentLevel => _currentLevel;
 
     public void CompleteLevel()
     {
@@ -14,5 +20,19 @@ public class LevelManager : MonoBehaviour
     public void FailLevel()
     {
         
+    }
+
+    public void StartNextLevel()
+    {
+        _currentLevel++;
+        SceneManager.LoadScene("Scenes/Level1");
+        StartCoroutine(StartLevel());
+    }
+
+    private IEnumerator StartLevel()
+    {
+        yield return new WaitForSeconds(2);
+        TimerManager.Instance.SetLevelTimer();
+        TimerManager.Instance.StartTimer();
     }
 }

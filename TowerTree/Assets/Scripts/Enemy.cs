@@ -51,8 +51,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        var gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
-        gameManager.AddPoints(valuePoints);
+        GameManager.Instance.AddPoints(valuePoints);
         Destroy(gameObject);
     }
 }

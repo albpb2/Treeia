@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TimerManager : MonoBehaviour
+public class TimerManager : Singleton<TimerManager>
 {
     [SerializeField] 
     private GameObject _timerBarPrefab;
 
-    private LevelManager _levelManager;
     private GameObject _timerBackground;
     private GameObject _timerBorder;
     private GameObject[] _subTimerBackgrounds;
@@ -24,20 +23,19 @@ public class TimerManager : MonoBehaviour
     private bool _started;
     private int _completedMilestones;
 
-    void Awake()
+    protected override void Awake()
     {
-        _timerBackground = GameObject.Find("TimerBackground");
-        _timerBorder = GameObject.Find("TimerBorder");
-        _levelManager = FindObjectOfType(typeof(LevelManager)) as LevelManager;
-        _timerBackgroundScaleX = _timerBackground.transform.localScale.x;
-        _timerBackgroundWidth = _timerBackground.GetComponent<RectTransform>().rect.width * _timerBackgroundScaleX;
-        _leftTimerBackgroundX = _timerBackground.transform.position.x - (_timerBackgroundWidth / 2);
+        base.Awake();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
-    void Start()
+    void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         var tree = FindObjectOfType<Tree>();
-        tree.TreeWatered += CompleteMilestone;
+        if (tree != null)
+        {
+            tree.TreeWatered += CompleteMilestone;
+        }
     }
 
     private void Update()
@@ -72,7 +70,7 @@ public class TimerManager : MonoBehaviour
                 else
                 {
                     StopTimer();
-                    _levelManager.FailLevel();
+                    LevelManager.Instance.FailLevel();
                 }
             }
         }
@@ -80,8 +78,14 @@ public class TimerManager : MonoBehaviour
 
     public void SetLevelTimer()
     {
+        _timerBackground = GameObject.Find("TimerBackground");
+        _timerBorder = GameObject.Find("TimerBorder");
+        _timerBackgroundScaleX = _timerBackground.transform.localScale.x;
+        _timerBackgroundWidth = _timerBackground.GetComponent<RectTransform>().rect.width * _timerBackgroundScaleX;
+        _leftTimerBackgroundX = _timerBackground.transform.position.x - (_timerBackgroundWidth / 2);
+        
         CleanUp();
-        _targetWaterCount = _levelManager.TargetWaterCount;
+        _targetWaterCount = LevelManager.Instance.TargetWaterCount;
         _subTimerBackgrounds = new GameObject[_targetWaterCount];
         _timerBars = new GameObject[_targetWaterCount];
         
@@ -116,7 +120,7 @@ public class TimerManager : MonoBehaviour
     {
         _currentSubTimerIndex = _subTimerBackgrounds.Length - 1;
         _currentSubTimer = _subTimerBackgrounds[_currentSubTimerIndex].GetComponent<Image>();
-        _timerSeconds = _levelManager.SecondsPerWater;
+        _timerSeconds = LevelManager.Instance.SecondsPerWater;
         _remainingTime = _timerSeconds;
         _currentSubTimerState = TimerStates.Normal;
         SetSubTimersColor(Color.green);
