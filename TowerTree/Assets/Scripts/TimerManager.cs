@@ -22,6 +22,7 @@ public class TimerManager : MonoBehaviour
     private float _timerSeconds;
     private float _remainingTime;
     private bool _started;
+    private int _completedMilestones;
 
     void Awake()
     {
@@ -33,6 +34,12 @@ public class TimerManager : MonoBehaviour
         _leftTimerBackgroundX = _timerBackground.transform.position.x - (_timerBackgroundWidth / 2);
     }
 
+    void Start()
+    {
+        var tree = FindObjectOfType<Tree>();
+        tree.TreeWatered += CompleteMilestone;
+    }
+
     private void Update()
     {
         if (_started)
@@ -40,17 +47,21 @@ public class TimerManager : MonoBehaviour
             _remainingTime -= Time.deltaTime;
             if (_remainingTime < 0) _remainingTime = 0;
             _currentSubTimer.fillAmount = _remainingTime / _timerSeconds;
-            const float remainingSecondsWarning = 0.4f;
-            const float remainingSecondsDanger = 0.2f;
-            if (_currentSubTimerState == TimerStates.Normal && _currentSubTimer.fillAmount <= remainingSecondsWarning)
+
+            if (!IsCurrentMilestoneAchieved())
             {
-                _currentSubTimerState = TimerStates.Warning;
-                SetSubTimersColor(Color.yellow);
-            }
-            else if (_currentSubTimerState == TimerStates.Warning && _currentSubTimer.fillAmount <= remainingSecondsDanger)
-            {
-                _currentSubTimerState = TimerStates.Danger;
-                SetSubTimersColor(Color.red);
+                const float remainingSecondsWarning = 0.4f;
+                const float remainingSecondsDanger = 0.2f;
+                if (_currentSubTimerState == TimerStates.Normal && _currentSubTimer.fillAmount <= remainingSecondsWarning)
+                {
+                    _currentSubTimerState = TimerStates.Warning;
+                    SetSubTimersColor(Color.yellow);
+                }
+                else if (_currentSubTimerState == TimerStates.Warning && _currentSubTimer.fillAmount <= remainingSecondsDanger)
+                {
+                    _currentSubTimerState = TimerStates.Danger;
+                    SetSubTimersColor(Color.red);
+                }
             }
         }
     }
@@ -58,12 +69,13 @@ public class TimerManager : MonoBehaviour
     public void SetLevelTimer()
     {
         CleanUp();
-        _subTimerBackgrounds = new GameObject[_levelManager.TargetWaterCount];
-        _timerBars = new GameObject[_levelManager.TargetWaterCount];
+        _targetWaterCount = _levelManager.TargetWaterCount;
+        _subTimerBackgrounds = new GameObject[_targetWaterCount];
+        _timerBars = new GameObject[_targetWaterCount];
         
-        var subtimerScaleX = _timerBackgroundScaleX / _levelManager.TargetWaterCount;
-        var subtimerRectWidth = _timerBackgroundWidth / _levelManager.TargetWaterCount;
-        for (var i = 0; i < _levelManager.TargetWaterCount; i++)
+        var subtimerScaleX = _timerBackgroundScaleX / _targetWaterCount;
+        var subtimerRectWidth = _timerBackgroundWidth / _targetWaterCount;
+        for (var i = 0; i < _targetWaterCount; i++)
         {
             var subTimerBackground = Instantiate(_timerBackground, _timerBackground.transform.parent);
             subTimerBackground.transform.localScale = new Vector3(
@@ -84,7 +96,7 @@ public class TimerManager : MonoBehaviour
             _timerBars[i] = timerBar;
         }
         
-        _timerBorder.transform.SetSiblingIndex(_timerBorder.transform.GetSiblingIndex() + _levelManager.TargetWaterCount * 2);
+        _timerBorder.transform.SetSiblingIndex(_timerBorder.transform.GetSiblingIndex() + _targetWaterCount * 2);
         _timerBackground.SetActive(false);
     }
 
@@ -95,8 +107,16 @@ public class TimerManager : MonoBehaviour
         _timerSeconds = _levelManager.SecondsPerWater;
         _remainingTime = _timerSeconds;
         _currentSubTimerState = TimerStates.Normal;
-        SetSubTimersColor(Color.white);
+        SetSubTimersColor(Color.green);
+        _completedMilestones = 0;
         _started = true;
+    }
+
+    public void CompleteMilestone()
+    {
+        _completedMilestones++;
+        SetSubTimersColor(Color.green);
+        _timerBars[_timerBars.Length - _completedMilestones].SetActive(false);
     }
 
     private void CleanUp()
@@ -124,5 +144,10 @@ public class TimerManager : MonoBehaviour
         {
             _subTimerBackgrounds[i].GetComponent<Image>().color = color;
         }
+    }
+
+    private bool IsCurrentMilestoneAchieved()
+    {
+        return _completedMilestones > ((_targetWaterCount - 1) - _currentSubTimerIndex);
     }
 }
