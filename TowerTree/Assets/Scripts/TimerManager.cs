@@ -48,7 +48,7 @@ public class TimerManager : MonoBehaviour
             if (_remainingTime < 0) _remainingTime = 0;
             _currentSubTimer.fillAmount = _remainingTime / _timerSeconds;
 
-            if (!IsCurrentMilestoneAchieved())
+            if (_remainingTime > 0 && !IsCurrentMilestoneAchieved())
             {
                 const float remainingSecondsWarning = 0.4f;
                 const float remainingSecondsDanger = 0.2f;
@@ -61,6 +61,18 @@ public class TimerManager : MonoBehaviour
                 {
                     _currentSubTimerState = TimerStates.Danger;
                     SetSubTimersColor(Color.red);
+                }
+            }
+            else if (_remainingTime <= 0)
+            {
+                if (IsCurrentMilestoneAchieved())
+                {
+                    MoveToNextTimer();
+                }
+                else
+                {
+                    StopTimer();
+                    _levelManager.FailLevel();
                 }
             }
         }
@@ -117,6 +129,41 @@ public class TimerManager : MonoBehaviour
         _completedMilestones++;
         SetSubTimersColor(Color.green);
         _timerBars[_timerBars.Length - _completedMilestones].SetActive(false);
+        _currentSubTimerState = TimerStates.Normal;
+    }
+
+    private void SetSubTimersColor(Color color)
+    {
+        for (var i = 0; i < _subTimerBackgrounds.Length; i++)
+        {
+            _subTimerBackgrounds[i].GetComponent<Image>().color = color;
+        }
+    }
+
+    private bool IsCurrentMilestoneAchieved()
+    {
+        return _completedMilestones > ((_targetWaterCount - 1) - _currentSubTimerIndex);
+    }
+
+    private void StopTimer()
+    {
+        _started = false;
+    }
+
+    private void MoveToNextTimer()
+    {
+        _currentSubTimerIndex--;
+        if (_currentSubTimerIndex >= 0)
+        {
+            _currentSubTimer = _subTimerBackgrounds[_currentSubTimerIndex].GetComponent<Image>();
+            _remainingTime = _timerSeconds;
+            _currentSubTimerState = TimerStates.Normal;
+        }
+        else
+        {
+            // Shouldn't reach here as when the level is completed we'll stop the timer automatically
+            StopTimer();
+        }
     }
 
     private void CleanUp()
@@ -136,18 +183,5 @@ public class TimerManager : MonoBehaviour
                 Destroy(_timerBars[i].gameObject);
             }
         }
-    }
-
-    private void SetSubTimersColor(Color color)
-    {
-        for (var i = 0; i < _subTimerBackgrounds.Length; i++)
-        {
-            _subTimerBackgrounds[i].GetComponent<Image>().color = color;
-        }
-    }
-
-    private bool IsCurrentMilestoneAchieved()
-    {
-        return _completedMilestones > ((_targetWaterCount - 1) - _currentSubTimerIndex);
     }
 }
