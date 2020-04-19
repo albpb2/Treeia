@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 public class LevelManager : Singleton<LevelManager>
 {
     private int _currentLevel = -1;
+
+    private string[] _levelSceneNames = new[]
+    {
+        "Scenes/Level1",
+        "Scenes/Level2",
+    };
     
     public int TargetWaterCount { get; set; }
 
@@ -21,6 +27,14 @@ public class LevelManager : Singleton<LevelManager>
     public void CompleteLevel()
     {
         Debug.Log("Level completed");
+        if (_currentLevel < _levelSceneNames.Length - 1)
+        {
+            StartNextLevel();
+        }
+        else
+        {
+            Debug.Log("Game finished!");
+        }
     }
 
     public void FailLevel()
@@ -31,14 +45,15 @@ public class LevelManager : Singleton<LevelManager>
     public void StartNextLevel()
     {
         _currentLevel++;
-        SceneManager.LoadScene("Scenes/Level1");
+        SceneManager.LoadScene(_levelSceneNames[_currentLevel]);
         StartCoroutine(StartLevel());
     }
 
     private IEnumerator StartLevel()
     {
         yield return new WaitForSeconds(2);
-        TimerManager.Instance.SetLevelTimer();
-        TimerManager.Instance.StartTimer();
+        var timerManager = FindObjectOfType<TimerManager>();
+        timerManager.SetLevelTimer();
+        timerManager.StartTimer();
     }
 }

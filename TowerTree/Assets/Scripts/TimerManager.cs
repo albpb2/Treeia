@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TimerManager : Singleton<TimerManager>
+public class TimerManager : MonoBehaviour
 {
     [SerializeField] 
     private GameObject _timerBarPrefab;
@@ -23,13 +22,7 @@ public class TimerManager : Singleton<TimerManager>
     private bool _started;
     private int _completedMilestones;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        SceneManager.sceneLoaded += HandleSceneLoaded;
-    }
-
-    void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    void Awake()
     {
         var tree = FindObjectOfType<Tree>();
         if (tree != null)
@@ -37,7 +30,6 @@ public class TimerManager : Singleton<TimerManager>
             tree.TreeWatered += CompleteMilestone;
         }
     }
-
     private void Update()
     {
         if (_started)
