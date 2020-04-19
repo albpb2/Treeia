@@ -53,6 +53,7 @@ public class LevelManager : Singleton<LevelManager>
         _currentLevel++;
         SceneManager.LoadScene(_levelSceneNames[_currentLevel]);
         StartCoroutine(StartLevel());
+        SoundManager.Instance.PlayMainTrack();
     }
 
     private IEnumerator StartLevel()

@@ -31,6 +31,12 @@ public class MainCharacterGun : MonoBehaviour
     private Transform _characterTransform;
     private GameObject[] _gunShotsPool;
     private int _currentGunShotIndex;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -119,6 +125,14 @@ public class MainCharacterGun : MonoBehaviour
 
                             break;
                         }
+                    }
+                }
+
+                if (_equippedGun.soundClip != null)
+                {
+                    if (!_equippedGun.automatic)
+                    {
+                        _audioSource.PlayOneShot(_equippedGun.soundClip);
                     }
                 }
 

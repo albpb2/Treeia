@@ -8,4 +8,5 @@ public class Gun : ScriptableObject
     public float shootFrequencySeconds;
     public float damage;
     public Sprite sprite;
+    public AudioClip soundClip;
 }
