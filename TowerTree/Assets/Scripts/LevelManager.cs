@@ -12,9 +12,15 @@ public class LevelManager : Singleton<LevelManager>
 
     public int CurrentLevel => _currentLevel;
 
+    public void SetUpLevelCompletion()
+    {
+        var stairs = GameObject.FindGameObjectWithTag(Tags.StairsUp).GetComponent<StairsUp>();
+        stairs.OpenStairs();
+    }
+    
     public void CompleteLevel()
     {
-        
+        Debug.Log("Level completed");
     }
 
     public void FailLevel()

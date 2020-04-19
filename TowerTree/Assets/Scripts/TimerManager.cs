@@ -132,8 +132,16 @@ public class TimerManager : Singleton<TimerManager>
     {
         _completedMilestones++;
         SetSubTimersColor(Color.green);
-        _timerBars[_timerBars.Length - _completedMilestones].SetActive(false);
         _currentSubTimerState = TimerStates.Normal;
+
+        if (_completedMilestones == _targetWaterCount)
+        {
+            LevelManager.Instance.SetUpLevelCompletion();
+        }
+        else
+        {
+            _timerBars[_timerBars.Length - _completedMilestones].SetActive(false);
+        }
     }
 
     private void SetSubTimersColor(Color color)

@@ -8,6 +8,7 @@ TagManager:
   - Puddle
   - Tree
   - GameManager
+  - StairsUp
   layers:
   - Default
   - TransparentFX
