@@ -7,7 +7,8 @@ public class StairsDownTrigger : MonoBehaviour
     {
         if (other.tag == Tags.Player)
         {
-            var stairs = transform.parent.GetComponent<StairsUp>();
+            var stairs = transform.parent.GetComponent<StairsDown>();
+            stairs.CloseStairs();
         }
     }
 }
