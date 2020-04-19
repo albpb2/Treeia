@@ -1,20 +1,44 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Singleton<Player>
 {
+    private const int InitialStamina = 100;
+    private const int MaxStamina = 100;
+    private const float StaminaFillRatio = 5;
+    
     [SerializeField] 
     private float _healthPoints = 100;
+    [SerializeField] 
+    private Image _staminaBar;
 
     private Tree _tree;
-    private int _waterCount;
     private MainCharacterGun _gun;
+    private MainCharacterController _mainCharacterController;
+    private int _waterCount;
+    private float _stamina = InitialStamina;
 
     protected override void Awake()
     {
         base.Awake();
 
         _gun = GetComponentInChildren<MainCharacterGun>();
+        _mainCharacterController = GetComponentInChildren<MainCharacterController>();
+    }
+
+    private void Update()
+    {
+        if (_stamina < MaxStamina)
+        {
+            _stamina += StaminaFillRatio * Time.deltaTime;
+            if (_stamina > MaxStamina)
+            {
+                _stamina = MaxStamina;
+            }
+        }
+
+        _staminaBar.fillAmount = _stamina / MaxStamina;
     }
 
     public void Hurt(float damage)
@@ -51,5 +75,17 @@ public class Player : Singleton<Player>
     public void SetActiveGun(Gun gun)
     {
         _gun.SetGun(gun);
+    }
+
+    public bool SpendSprintStamina()
+    {
+        const int staminaPerSprint = 30;
+        if (_stamina > staminaPerSprint)
+        {
+            _stamina -= staminaPerSprint;
+            return true;
+        }
+
+        return false;
     }
 }

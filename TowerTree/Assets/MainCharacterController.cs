@@ -5,18 +5,32 @@ public class MainCharacterController : MonoBehaviour
     [SerializeField] 
     private float _movementSpeed;
     
+    private Player _player;
     private Rigidbody2D _rigidbody;
     private Vector2 _movement;
+    private bool _sprinting;
+    private bool _sprintingOnThisFrame;
     
-    // Start is called before the first frame update
     void Start()
     {
         _rigidbody = GetComponentInParent<Rigidbody2D>();
+        _player = GetComponentInParent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        var sprintInput = Input.GetAxisRaw("Sprint");
+        if (_sprinting && sprintInput == 0)
+        {
+            _sprinting = false;
+        }
+        else if (!_sprinting && sprintInput > 0 && _player.SpendSprintStamina())
+        {
+            Debug.Log("Sprinting");
+            _sprinting = true;
+            _sprintingOnThisFrame = true;
+        }
+        
         var verticalInput = Input.GetAxis("Vertical");
         var horizontalInput = Input.GetAxis("Horizontal");
         
@@ -46,9 +60,11 @@ public class MainCharacterController : MonoBehaviour
             _movement.x = 0;
         }
     }
-
+    
     private void FixedUpdate()
     {
-        _rigidbody.MovePosition(_rigidbody.position + _movement * (_movementSpeed * Time.fixedDeltaTime));
+        var speed = _sprintingOnThisFrame ? _movementSpeed * 10 : _movementSpeed;
+        _rigidbody.MovePosition(_rigidbody.position + _movement * (speed * Time.fixedDeltaTime));
+        _sprintingOnThisFrame = false;
     }
 }
