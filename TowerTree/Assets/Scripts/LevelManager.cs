@@ -45,7 +45,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void FailLevel()
     {
-        
+        GameManager.Instance.Lose();
     }
 
     public void StartNextLevel()

@@ -40,4 +40,9 @@ public class GameManager : Singleton<GameManager>
     {
         SceneManager.LoadScene("GameWon");
     }
+
+    public void Lose()
+    {
+        SceneManager.LoadScene("GameLost");
+    }
 }

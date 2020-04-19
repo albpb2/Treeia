@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameWon : MonoBehaviour
+public class GameFinished : MonoBehaviour
 {
      [SerializeField] 
      private Text _pointsText;
