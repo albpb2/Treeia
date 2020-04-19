@@ -83,6 +83,10 @@ public class MainCharacterGun : MonoBehaviour
                 _gunShot = false;
                 _spritesPerKey[_shootingDirection].gameObject.SetActive(false);
                 _shootingDirection = null;
+                if (_equippedGun.automatic)
+                {
+                    _audioSource.Stop();
+                }
             }
         }
 
@@ -104,7 +108,6 @@ public class MainCharacterGun : MonoBehaviour
             if (!string.IsNullOrEmpty(_shootingDirection) && (!_gunShot || (_equippedGun.automatic && IsAutomaticGunCooledDown())))
             {
                 Debug.Log("Shooting");
-                _gunShot = true;
                 var hits = Physics2D.RaycastAll(_characterTransform.position, _directionsPerKey[_shootingDirection]);
                 if (hits != null && hits.Length > 0)
                 {
@@ -134,8 +137,15 @@ public class MainCharacterGun : MonoBehaviour
                     {
                         _audioSource.PlayOneShot(_equippedGun.soundClip);
                     }
+                    else if (!_gunShot)
+                    {
+                        _audioSource.clip = _equippedGun.soundClip;
+                        _audioSource.loop = true;
+                        _audioSource.Play();
+                    }
                 }
 
+                _gunShot = true;
                 _lastShotTime = Time.time;
             }
         }
