@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -6,6 +7,8 @@ public class GameManager : Singleton<GameManager>
 
     private int _currentPoints;
     private bool _gameStarted;
+
+    public int CurrentPoints => _currentPoints;
 
     protected override void Awake()
     {
@@ -31,5 +34,10 @@ public class GameManager : Singleton<GameManager>
     {
         _currentPoints += points;
         Debug.Log($"{points} points earned. Current points = {_currentPoints}");
+    }
+
+    public void Win()
+    {
+        SceneManager.LoadScene("GameWon");
     }
 }

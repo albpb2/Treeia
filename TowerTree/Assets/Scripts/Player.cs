@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : Singleton<Player>
@@ -25,6 +25,7 @@ public class Player : Singleton<Player>
 
         _gun = GetComponentInChildren<MainCharacterGun>();
         _mainCharacterController = GetComponentInChildren<MainCharacterController>();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     private void Update()
@@ -39,6 +40,11 @@ public class Player : Singleton<Player>
         }
 
         _staminaBar.fillAmount = _stamina / MaxStamina;
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        _tree = FindObjectOfType(typeof(Tree)) as Tree;
     }
 
     public void Hurt(float damage)
@@ -64,7 +70,6 @@ public class Player : Singleton<Player>
 
     public void WaterTree()
     {
-        _tree = _tree ?? FindObjectOfType(typeof(Tree)) as Tree;
         if (_waterCount > 0)
         {
             _tree.Water();

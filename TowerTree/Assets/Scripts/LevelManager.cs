@@ -39,7 +39,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            Debug.Log("Game finished!");
+            GameManager.Instance.Win();
         }
     }
 

@@ -5,15 +5,15 @@ public class MainMenu : MonoBehaviour
 {
     private void Awake()
     {
-        var dontDestroyOnLoadScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName("DontDestroyOnLoad");
-        if (dontDestroyOnLoadScene != null && dontDestroyOnLoadScene.isLoaded)
+        var dontDestroyOnLoadScene = GameManager.Instance?.gameObject.scene;
+        if (dontDestroyOnLoadScene != null)
         {
-            var gameObjects = dontDestroyOnLoadScene.GetRootGameObjects();
+            var gameObjects = dontDestroyOnLoadScene.Value.GetRootGameObjects();
             if (gameObjects != null)
             {
                 for (var i = 0; i < gameObjects.Length; i++)
                 {
-                    Destroy(gameObject);
+                    Destroy(gameObjects[i]);
                 }
             }
         }
