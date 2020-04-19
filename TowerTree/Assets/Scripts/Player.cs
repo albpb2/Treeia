@@ -1,18 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [SerializeField] 
     private float _healthPoints = 100;
 
     private Tree _tree;
     private int _waterCount;
-
-    private void Start()
-    {
-        _tree = FindObjectOfType(typeof(Tree)) as Tree;
-    }
 
     public void Hurt(float damage)
     {
@@ -37,6 +32,7 @@ public class Player : MonoBehaviour
 
     public void WaterTree()
     {
+        _tree = _tree ?? FindObjectOfType(typeof(Tree)) as Tree;
         if (_waterCount > 0)
         {
             _tree.Water();

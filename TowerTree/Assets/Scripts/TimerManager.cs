@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TimerManager : MonoBehaviour
@@ -22,15 +23,7 @@ public class TimerManager : MonoBehaviour
     private bool _started;
     private int _completedMilestones;
 
-    void Awake()
-    {
-        var tree = FindObjectOfType<Tree>();
-        if (tree != null)
-        {
-            tree.TreeWatered += CompleteMilestone;
-        }
-    }
-    private void Update()
+    void Update()
     {
         if (_started)
         {
@@ -65,6 +58,24 @@ public class TimerManager : MonoBehaviour
                     LevelManager.Instance.FailLevel();
                 }
             }
+        }
+    }
+
+    private void OnEnable()
+    {
+        var tree = FindObjectOfType<Tree>();
+        if (tree != null)
+        {
+            tree.TreeWatered += CompleteMilestone;
+        }
+    }
+
+    private void OnDisable()
+    {
+        var tree = FindObjectOfType<Tree>();
+        if (tree != null)
+        {
+            tree.TreeWatered -= CompleteMilestone;
         }
     }
 

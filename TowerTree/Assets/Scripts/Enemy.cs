@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pathfinding;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,14 +12,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] 
     private int valuePoints = 5;
 
+    private Animator _animator;
+    private AIDestinationSetter _aiDestinationSetter;
     private Player _player;
     private float _lastAttackTime = 0;
-    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Player>();
+        _aiDestinationSetter = GetComponent<AIDestinationSetter>();
+        _aiDestinationSetter.target = _player.transform;
         _animator = GetComponentInChildren<Animator>();
     }
 

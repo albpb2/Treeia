@@ -52,8 +52,8 @@ public class LevelManager : Singleton<LevelManager>
     private IEnumerator StartLevel()
     {
         yield return new WaitForSeconds(2);
-        var timerManager = FindObjectOfType<TimerManager>();
-        timerManager.SetLevelTimer();
-        timerManager.StartTimer();
+        var timerManager = FindObjectsOfType<TimerManager>();
+        timerManager[0].SetLevelTimer();
+        timerManager[0].StartTimer();
     }
 }
