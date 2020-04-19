@@ -13,6 +13,7 @@ public class TimerManager : MonoBehaviour
     private GameObject[] _subTimerBackgrounds;
     private GameObject[] _timerBars;
     private Image _currentSubTimer;
+    private TimerStates _currentSubTimerState;
     private int _currentSubTimerIndex;
     private int _targetWaterCount;
     private float _timerBackgroundScaleX;
@@ -39,6 +40,18 @@ public class TimerManager : MonoBehaviour
             _remainingTime -= Time.deltaTime;
             if (_remainingTime < 0) _remainingTime = 0;
             _currentSubTimer.fillAmount = _remainingTime / _timerSeconds;
+            const float remainingSecondsWarning = 0.4f;
+            const float remainingSecondsDanger = 0.2f;
+            if (_currentSubTimerState == TimerStates.Normal && _currentSubTimer.fillAmount <= remainingSecondsWarning)
+            {
+                _currentSubTimerState = TimerStates.Warning;
+                SetSubTimersColor(Color.yellow);
+            }
+            else if (_currentSubTimerState == TimerStates.Warning && _currentSubTimer.fillAmount <= remainingSecondsDanger)
+            {
+                _currentSubTimerState = TimerStates.Danger;
+                SetSubTimersColor(Color.red);
+            }
         }
     }
 
@@ -81,6 +94,8 @@ public class TimerManager : MonoBehaviour
         _currentSubTimer = _subTimerBackgrounds[_currentSubTimerIndex].GetComponent<Image>();
         _timerSeconds = _levelManager.SecondsPerWater;
         _remainingTime = _timerSeconds;
+        _currentSubTimerState = TimerStates.Normal;
+        SetSubTimersColor(Color.white);
         _started = true;
     }
 
@@ -100,6 +115,14 @@ public class TimerManager : MonoBehaviour
             {
                 Destroy(_timerBars[i].gameObject);
             }
+        }
+    }
+
+    private void SetSubTimersColor(Color color)
+    {
+        for (var i = 0; i < _subTimerBackgrounds.Length; i++)
+        {
+            _subTimerBackgrounds[i].GetComponent<Image>().color = color;
         }
     }
 }
