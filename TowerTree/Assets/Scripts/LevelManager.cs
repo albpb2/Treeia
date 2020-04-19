@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    [SerializeField] 
+    private int _pointsPerRemainingSecond = 10;
+    
     private int _currentLevel = -1;
 
     private string[] _levelSceneNames = new[]
@@ -26,6 +29,9 @@ public class LevelManager : Singleton<LevelManager>
     
     public void CompleteLevel()
     {
+        var timerManager = GameObject.FindGameObjectWithTag(Tags.TimerManager).GetComponent<TimerManager>();
+        GameManager.Instance.AddPoints((int) (timerManager.RemainingTime * _pointsPerRemainingSecond));
+        
         Debug.Log("Level completed");
         if (_currentLevel < _levelSceneNames.Length - 1)
         {

@@ -9,6 +9,7 @@ TagManager:
   - Tree
   - GameManager
   - StairsUp
+  - TimerManager
   layers:
   - Default
   - TransparentFX

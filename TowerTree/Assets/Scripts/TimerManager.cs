@@ -23,6 +23,8 @@ public class TimerManager : MonoBehaviour
     private bool _started;
     private int _completedMilestones;
 
+    public float RemainingTime => _remainingTime;
+
     void Update()
     {
         if (_started)
