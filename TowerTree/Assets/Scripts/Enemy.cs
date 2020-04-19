@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private float _hitPoints;
     [SerializeField] 
     private Collider2D _hitZoneCollider;
+    [SerializeField] 
+    private int valuePoints = 5;
 
     private Player _player;
     private float _lastAttackTime = 0;
@@ -49,6 +51,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        var gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
+        gameManager.AddPoints(valuePoints);
         Destroy(gameObject);
     }
 }

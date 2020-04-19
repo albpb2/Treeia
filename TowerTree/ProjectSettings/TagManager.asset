@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Puddle
   - Tree
+  - GameManager
   layers:
   - Default
   - TransparentFX

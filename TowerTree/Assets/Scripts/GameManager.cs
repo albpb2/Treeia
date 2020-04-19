@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     private TimerManager _timerManager;
     private LevelManager _levelManager;
 
+    private int _currentPoints;
+
     private void Awake()
     {
         _timerManager = FindObjectOfType(typeof(TimerManager)) as TimerManager;
@@ -18,5 +20,11 @@ public class GameManager : MonoBehaviour
         _levelManager.SecondsPerWater = 20;
         _timerManager.SetLevelTimer();
         _timerManager.StartTimer();
+    }
+
+    public void AddPoints(int points)
+    {
+        _currentPoints += points;
+        Debug.Log($"{points} points earned. Current points = {_currentPoints}");
     }
 }
