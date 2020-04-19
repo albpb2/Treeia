@@ -259,6 +259,9 @@ namespace Pathfinding {
 			interpolator.SetPath(null);
 		}
 
+		public delegate void CurrentTargetReachedHandler();
+		public event CurrentTargetReachedHandler CurrentTargetReached;
+		
 		/// <summary>
 		/// The end of the path has been reached.
 		/// If you want custom logic for when the AI has reached it's destination add it here. You can
@@ -268,6 +271,7 @@ namespace Pathfinding {
 		/// So when the agent is close to the destination this method will typically be called every <see cref="repathRate"/> seconds.
 		/// </summary>
 		public virtual void OnTargetReached () {
+			CurrentTargetReached?.Invoke();
 		}
 
 		/// <summary>

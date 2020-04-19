@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
         if (!_gameStarted)
         {
             _levelManager.TargetWaterCount = 3;
-            _levelManager.SecondsPerWater = 7;
+            _levelManager.SecondsPerWater = 30;
             _levelManager.StartNextLevel();
         }
     }

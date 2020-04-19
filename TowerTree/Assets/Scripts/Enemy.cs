@@ -10,7 +10,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] 
     private Collider2D _hitZoneCollider;
     [SerializeField] 
-    private int valuePoints = 5;
+    private int _valuePoints = 5;
+    [SerializeField] 
+    private bool _followPlayer;
 
     private Animator _animator;
     private AIDestinationSetter _aiDestinationSetter;
@@ -22,8 +24,12 @@ public class Enemy : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Player>();
         _aiDestinationSetter = GetComponent<AIDestinationSetter>();
-        _aiDestinationSetter.target = _player.transform;
         _animator = GetComponentInChildren<Animator>();
+        
+        if (_followPlayer)
+        {
+            _aiDestinationSetter.target = _player.transform;
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        GameManager.Instance.AddPoints(valuePoints);
+        GameManager.Instance.AddPoints(_valuePoints);
         Destroy(gameObject);
     }
 }

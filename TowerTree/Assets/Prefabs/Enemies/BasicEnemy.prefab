@@ -109,6 +109,8 @@ MonoBehaviour:
   _healthPoints: 5
   _hitPoints: 10
   _hitZoneCollider: {fileID: 9153276805112023885}
+  _valuePoints: 5
+  _followPlayer: 1
 --- !u!61 &9153276805544141320
 BoxCollider2D:
   m_ObjectHideFlags: 0

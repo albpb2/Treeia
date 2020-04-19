@@ -9,4 +9,5 @@
     public const string TimerManager = nameof(TimerManager);
     public const string GunPickUp = nameof(GunPickUp);
     public const string PointsPickUp = nameof(PointsPickUp);
+    public const string EnemyRoutePath = nameof(EnemyRoutePath);
 }
