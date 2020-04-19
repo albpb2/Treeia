@@ -10,6 +10,8 @@ TagManager:
   - GameManager
   - StairsUp
   - TimerManager
+  - GunPickUp
+  - PointsPickUp
   layers:
   - Default
   - TransparentFX

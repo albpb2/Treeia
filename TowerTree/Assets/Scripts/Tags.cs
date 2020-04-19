@@ -7,4 +7,6 @@
     public const string GameManager = nameof(GameManager);
     public const string StairsUp = nameof(StairsUp);
     public const string TimerManager = nameof(TimerManager);
+    public const string GunPickUp = nameof(GunPickUp);
+    public const string PointsPickUp = nameof(PointsPickUp);
 }

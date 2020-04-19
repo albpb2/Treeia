@@ -97,6 +97,7 @@ public class MainCharacterGun : MonoBehaviour
             
             if (!string.IsNullOrEmpty(_shootingDirection) && (!_gunShot || (_equippedGun.automatic && IsAutomaticGunCooledDown())))
             {
+                Debug.Log("Shooting");
                 _gunShot = true;
                 var hits = Physics2D.RaycastAll(_characterTransform.position, _directionsPerKey[_shootingDirection]);
                 if (hits != null && hits.Length > 0)
@@ -126,9 +127,20 @@ public class MainCharacterGun : MonoBehaviour
         }
     }
 
+    public void SetGun(Gun gun)
+    {
+        _equippedGun = gun;
+    }
+    
     private bool IsAutomaticGunCooledDown()
     {
-        return Time.time - _lastShotTime > _equippedGun.shootFrequencySeconds;
+        var a =  Time.time - _lastShotTime > _equippedGun.shootFrequencySeconds;
+        if (!a)
+        {
+            Debug.Log("Not cooled down");
+        }
+
+        return a;
     }
 
     private IEnumerator DisableGunShot(GameObject gunShot)

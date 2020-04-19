@@ -46,6 +46,16 @@ public class PlayerInteraction : MonoBehaviour
                 case Tags.Tree:
                     _player.WaterTree();
                     break;
+                case Tags.GunPickUp:
+                    var gun = collider.GetComponent<GunPickUp>();
+                    _player.SetActiveGun(gun.Gun);
+                    Destroy(gun.gameObject);
+                    break;
+                case Tags.PointsPickUp:
+                    var pointsPickUp = collider.GetComponent<PointsPickUp>();
+                    GameManager.Instance.AddPoints(pointsPickUp.Points);
+                    Destroy(pointsPickUp.gameObject);
+                    break;
                 default:
                     Debug.Log("Unhandled player interaction");
                     break;

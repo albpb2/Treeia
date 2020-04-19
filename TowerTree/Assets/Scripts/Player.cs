@@ -8,6 +8,14 @@ public class Player : Singleton<Player>
 
     private Tree _tree;
     private int _waterCount;
+    private MainCharacterGun _gun;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _gun = GetComponentInChildren<MainCharacterGun>();
+    }
 
     public void Hurt(float damage)
     {
@@ -38,5 +46,10 @@ public class Player : Singleton<Player>
             _tree.Water();
             _waterCount--;
         }
+    }
+
+    public void SetActiveGun(Gun gun)
+    {
+        _gun.SetGun(gun);
     }
 }

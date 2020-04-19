@@ -7,4 +7,5 @@ public class Gun : ScriptableObject
     public bool automatic;
     public float shootFrequencySeconds;
     public float damage;
+    public Sprite sprite;
 }
