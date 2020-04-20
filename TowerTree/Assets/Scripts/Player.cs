@@ -59,10 +59,9 @@ public class Player : Singleton<Player>
             _healthPoints = 0;
         }
         
-        Debug.Log($"Received {damage} damage points. Remaining HP = {_healthPoints}");
-        if (_healthPoints == 0)
+        if (_healthPoints <= 0)
         {
-            Debug.Log("You're dead");
+            GameManager.Instance.Lose();
         }
     }
 
