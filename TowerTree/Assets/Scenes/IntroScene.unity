@@ -1593,7 +1593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 280}
+  m_AnchoredPosition: {x: -10, y: 217}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1789982014
@@ -1629,7 +1629,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "A brave warrior decided that she would give her life\nto save the land\r
     if it was necessary. \nThe tree was still alive, but it needed water to grow
-    back\n before being completely destroyed..."
+    back\n before being completely destroyed.\nBut beware! The tree is dying quickly
+    so you must water\nit constantly or it will be all in vain..."
 --- !u!222 &1789982015
 CanvasRenderer:
   m_ObjectHideFlags: 0
