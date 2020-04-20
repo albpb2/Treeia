@@ -31,8 +31,8 @@ public class MainCharacterController : MonoBehaviour
             _sprintingOnThisFrame = true;
         }
         
-        var verticalInput = Input.GetAxis("Vertical");
-        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxisRaw("Vertical");
+        var horizontalInput = Input.GetAxisRaw("Horizontal");
         
         if (verticalInput > 0)
         {

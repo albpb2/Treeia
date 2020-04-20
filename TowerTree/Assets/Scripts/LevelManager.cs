@@ -7,7 +7,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] 
     private int _pointsPerRemainingSecond = 10;
     
-    private int _currentLevel = -1;
+    private int _currentLevel = 4;
 
     private string[] _levelSceneNames =
     {
