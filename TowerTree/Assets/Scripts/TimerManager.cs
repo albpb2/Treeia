@@ -81,7 +81,7 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    public void SetLevelTimer()
+    public void SetLevelTimer(int puddlesCount)
     {
         _timerBackground = GameObject.Find("TimerBackground");
         _timerBorder = GameObject.Find("TimerBorder");
@@ -90,7 +90,7 @@ public class TimerManager : MonoBehaviour
         _leftTimerBackgroundX = _timerBackground.transform.position.x - (_timerBackgroundWidth / 2);
         
         CleanUp();
-        _targetWaterCount = LevelManager.Instance.TargetWaterCount;
+        _targetWaterCount = puddlesCount;
         _subTimerBackgrounds = new GameObject[_targetWaterCount];
         _timerBars = new GameObject[_targetWaterCount];
         
@@ -121,11 +121,11 @@ public class TimerManager : MonoBehaviour
         _timerBackground.SetActive(false);
     }
 
-    public void StartTimer()
+    public void StartTimer(float secondsPerPuddle)
     {
         _currentSubTimerIndex = _subTimerBackgrounds.Length - 1;
         _currentSubTimer = _subTimerBackgrounds[_currentSubTimerIndex].GetComponent<Image>();
-        _timerSeconds = LevelManager.Instance.SecondsPerWater;
+        _timerSeconds = secondsPerPuddle;
         _remainingTime = _timerSeconds;
         _currentSubTimerState = TimerStates.Normal;
         SetSubTimersColor(Color.green);

@@ -9,15 +9,23 @@ public class LevelManager : Singleton<LevelManager>
     
     private int _currentLevel = -1;
 
-    private string[] _levelSceneNames = new[]
+    private string[] _levelSceneNames =
     {
         "Scenes/Level1",
         "Scenes/Level2",
     };
-    
-    public int TargetWaterCount { get; set; }
 
-    public float SecondsPerWater { get; set; }
+    private int[] _secondsPerPuddlePerLevel =
+    {
+        15,
+        20
+    };
+
+    private int[] _puddlesCountPerLevel =
+    {
+        3,
+        2
+    };
 
     public int CurrentLevel => _currentLevel;
 
@@ -60,7 +68,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         yield return new WaitForSeconds(2);
         var timerManager = FindObjectsOfType<TimerManager>();
-        timerManager[0].SetLevelTimer();
-        timerManager[0].StartTimer();
+        timerManager[0].SetLevelTimer(_puddlesCountPerLevel[_currentLevel]);
+        timerManager[0].StartTimer(_secondsPerPuddlePerLevel[_currentLevel]);
     }
 }
