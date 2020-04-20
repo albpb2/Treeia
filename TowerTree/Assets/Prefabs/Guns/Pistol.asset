@@ -16,5 +16,7 @@ MonoBehaviour:
   automatic: 0
   shootFrequencySeconds: 0
   damage: 1
+  initialBulletsCount: 0
+  infiniteBullets: 1
   sprite: {fileID: 0}
   soundClip: {fileID: 8300000, guid: 5785afeeebe2497478d24bdc0ab915a7, type: 3}

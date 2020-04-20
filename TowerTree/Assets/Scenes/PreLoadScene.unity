@@ -1604,6 +1604,11 @@ PrefabInstance:
       propertyPath: _gunShotsPoolSize
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 214979116, guid: b06394ea0cf82fb4da149915a2018c1e, type: 3}
+      propertyPath: _defaultGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 421697565be9b3a4d913ea3c2a0f9c2e,
+        type: 2}
     - target: {fileID: 1249499396, guid: b06394ea0cf82fb4da149915a2018c1e, type: 3}
       propertyPath: m_FlipY
       value: 0

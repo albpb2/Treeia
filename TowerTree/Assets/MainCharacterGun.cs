@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class MainCharacterGun : MonoBehaviour
@@ -21,16 +22,20 @@ public class MainCharacterGun : MonoBehaviour
     private GameObject _gunShotsRoot;
     [SerializeField] 
     private GameObject _gunShotPrefab;
+    [SerializeField] 
+    private Gun _defaultGun;
 
-    private Dictionary<string, GameObject> _spritesPerKey;
-    private Dictionary<string, Vector2> _directionsPerKey;
     private string[] _spriteKeys;
     private string _shootingDirection;
     private bool _gunShot;
     private float _lastShotTime = 0;
+    private int _currentGunShotIndex;
+    private int _bullets;
+    private bool _infiniteBullets;
+    private Dictionary<string, GameObject> _spritesPerKey;
+    private Dictionary<string, Vector2> _directionsPerKey;
     private Transform _characterTransform;
     private GameObject[] _gunShotsPool;
-    private int _currentGunShotIndex;
     private AudioSource _audioSource;
 
     private void Awake()
@@ -80,13 +85,7 @@ public class MainCharacterGun : MonoBehaviour
         {
             if (Math.Abs(Input.GetAxis(_shootingDirection)) < 0.1)
             {
-                _gunShot = false;
-                _spritesPerKey[_shootingDirection].gameObject.SetActive(false);
-                _shootingDirection = null;
-                if (_equippedGun.automatic)
-                {
-                    _audioSource.Stop();
-                }
+                StopShooting();
             }
         }
 
@@ -131,6 +130,16 @@ public class MainCharacterGun : MonoBehaviour
 
                 _gunShot = true;
                 _lastShotTime = Time.time;
+
+                if (!_infiniteBullets)
+                {
+                    _bullets--;
+                    if (_bullets == 0)
+                    {
+                        StopShooting();
+                        SetGun(_defaultGun);
+                    }
+                }
             }
         }
     }
@@ -138,6 +147,8 @@ public class MainCharacterGun : MonoBehaviour
     public void SetGun(Gun gun)
     {
         _equippedGun = gun;
+        _bullets = gun.initialBulletsCount;
+        _infiniteBullets = gun.infiniteBullets;
     }
     
     private bool IsAutomaticGunCooledDown()
@@ -155,5 +166,16 @@ public class MainCharacterGun : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         gunShot.SetActive(false);
+    }
+
+    private void StopShooting()
+    {
+        _gunShot = false;
+        _spritesPerKey[_shootingDirection].gameObject.SetActive(false);
+        _shootingDirection = null;
+        if (_equippedGun.automatic)
+        {
+            _audioSource.Stop();
+        }
     }
 }
