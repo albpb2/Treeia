@@ -9,6 +9,11 @@ public class Player : Singleton<Player>
     private const int InitialStamina = 100;
     private const int MaxStamina = 100;
     private const float StaminaFillRatio = 5;
+
+    public delegate void HandleWaterPickedUp();
+    public event HandleWaterPickedUp WaterPickedUp;
+    public delegate void HandleWaterUsed();
+    public event HandleWaterPickedUp WaterUsed;
     
     [SerializeField] 
     private float _healthPoints = 100;
@@ -22,6 +27,7 @@ public class Player : Singleton<Player>
     private float _stamina = InitialStamina;
 
     public float HealthPoints => _healthPoints;
+    public int WaterCount => _waterCount;
 
     protected override void Awake()
     {
@@ -68,7 +74,7 @@ public class Player : Singleton<Player>
     public void PickWater()
     {
         _waterCount++;
-        Debug.Log($"Water obtained. Available: {_waterCount}");
+        WaterPickedUp?.Invoke();
     }
 
     public void WaterTree()
@@ -77,6 +83,7 @@ public class Player : Singleton<Player>
         {
             _tree.Water();
             _waterCount--;
+            WaterUsed?.Invoke();
         }
     }
 

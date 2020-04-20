@@ -13,6 +13,8 @@ public class UiManager : Singleton<UiManager>
     private Image _gunImage;
     [SerializeField] 
     private Image _hpBar;
+    [SerializeField] 
+    private Text _waterCountText;
 
     private Player _player;
     private MainCharacterGun _playerGun;
@@ -59,8 +61,25 @@ public class UiManager : Singleton<UiManager>
         _previousHpFillAmount = _hpBar.fillAmount;
     }
 
+    private void OnEnable()
+    {
+        _player.WaterPickedUp += UpdateWaterCount;
+        _player.WaterUsed += UpdateWaterCount;
+    }
+
+    private void OnDisable()
+    {
+        _player.WaterPickedUp -= UpdateWaterCount;
+        _player.WaterUsed -= UpdateWaterCount;
+    }
+
     public void SetLevelNumberText(int levelNumber)
     {
         _levelNumberText.text = $"Floor {levelNumber}";
+    }
+
+    private void UpdateWaterCount()
+    {
+        _waterCountText.text = $"x{_player.WaterCount}";
     }
 }
