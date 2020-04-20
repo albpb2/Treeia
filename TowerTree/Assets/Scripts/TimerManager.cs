@@ -41,7 +41,7 @@ public class TimerManager : Singleton<TimerManager>
             if (_remainingTime < 0) _remainingTime = 0;
             _currentSubTimer.fillAmount = _remainingTime / _timerSeconds;
 
-            if (_remainingTime > 0 && !IsCurrentMilestoneAchieved())
+            if (_remainingTime > 0 && (!IsCurrentMilestoneAchieved() || _currentSubTimerIndex == 0))
             {
                 const float remainingSecondsWarning = 0.4f;
                 const float remainingSecondsDanger = 0.2f;
@@ -58,7 +58,7 @@ public class TimerManager : Singleton<TimerManager>
             }
             else if (_remainingTime <= 0)
             {
-                if (IsCurrentMilestoneAchieved())
+                if (IsCurrentMilestoneAchieved() &&  _currentSubTimerIndex != 0)
                 {
                     MoveToNextTimer();
                 }
@@ -152,13 +152,17 @@ public class TimerManager : Singleton<TimerManager>
 
         if (_completedMilestones == _targetWaterCount)
         {
-            StopTimer();
             LevelManager.Instance.SetUpLevelCompletion();
         }
         else
         {
             _timerBars[_timerBars.Length - _completedMilestones].SetActive(false);
         }
+    }
+
+    public void StopTimer()
+    {
+        _started = false;
     }
 
     private void SetSubTimersColor(Color color)
@@ -174,11 +178,6 @@ public class TimerManager : Singleton<TimerManager>
         return _completedMilestones > ((_targetWaterCount - 1) - _currentSubTimerIndex);
     }
 
-    private void StopTimer()
-    {
-        _started = false;
-    }
-
     private void MoveToNextTimer()
     {
         _currentSubTimerIndex--;
@@ -187,11 +186,6 @@ public class TimerManager : Singleton<TimerManager>
             _currentSubTimer = _subTimerBackgrounds[_currentSubTimerIndex].GetComponent<Image>();
             _remainingTime = _timerSeconds;
             _currentSubTimerState = TimerStates.Normal;
-        }
-        else
-        {
-            // Shouldn't reach here as when the level is completed we'll stop the timer automatically
-            StopTimer();
         }
     }
 }

@@ -72,6 +72,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void StartNextLevel()
     {
+        TimerManager.Instance.StopTimer();
         _currentLevel++;
         SceneManager.LoadScene(_levelSceneNames[_currentLevel]);
         UiManager.Instance.SetLevelNumberText(_currentLevel + 1);
