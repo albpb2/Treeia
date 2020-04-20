@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 9153276805544141319}
   - component: {fileID: 9153276805544141317}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: BasicEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,6 @@ GameObject:
   - component: {fileID: 9153276805962990742}
   - component: {fileID: 9153276805962990740}
   - component: {fileID: 9153276805962990741}
-  - component: {fileID: 9153276805962990739}
   m_Layer: 0
   m_Name: EnemyGraphics
   m_TagString: Untagged
@@ -330,15 +329,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9153276805962990739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9153276805962990744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb5691070f7c53d4ab6594dc61f5f9c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

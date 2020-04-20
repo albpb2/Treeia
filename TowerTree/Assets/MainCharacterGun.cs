@@ -108,28 +108,12 @@ public class MainCharacterGun : MonoBehaviour
             if (!string.IsNullOrEmpty(_shootingDirection) && (!_gunShot || (_equippedGun.automatic && IsAutomaticGunCooledDown())))
             {
                 Debug.Log("Shooting");
-                var hits = Physics2D.RaycastAll(_characterTransform.position, _directionsPerKey[_shootingDirection]);
-                if (hits != null && hits.Length > 0)
-                {
-                    for (var i = 0; i < hits.Length; i++)
-                    {
-                        if (!hits[i].collider.isTrigger)
-                        {
-                            _gunShotsPool[_currentGunShotIndex].transform.position = hits[i].point;
-                            _gunShotsPool[_currentGunShotIndex].SetActive(true);
-                            StartCoroutine(DisableGunShot(_gunShotsPool[_currentGunShotIndex]));
-                            _currentGunShotIndex = (_currentGunShotIndex + 1) % _gunShotsPoolSize;
-
-                            if (hits[i].transform.tag == Tags.Enemy)
-                            {
-                                var enemy = hits[i].transform.GetComponent<Enemy>();
-                                enemy.Hurt(_equippedGun.damage);
-                            }
-
-                            break;
-                        }
-                    }
-                }
+                Shooting.Shoot(_characterTransform.position, 
+                    _directionsPerKey[_shootingDirection], 
+                    _gunShotsPool[_currentGunShotIndex],
+                    _equippedGun.damage);
+                StartCoroutine(DisableGunShot(_gunShotsPool[_currentGunShotIndex]));
+                _currentGunShotIndex = (_currentGunShotIndex + 1) % _gunShotsPoolSize;
 
                 if (_equippedGun.soundClip != null)
                 {

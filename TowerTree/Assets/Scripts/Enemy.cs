@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     private Player _player;
     private float _lastAttackTime = 0;
 
+    public float HitPoints => _hitPoints;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +39,11 @@ public class Enemy : MonoBehaviour
     {
         if (Time.time - _lastAttackTime > 3)
         {
-            _animator.SetTrigger("Attack");
-            _lastAttackTime = Time.time;
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Attack");
+                _lastAttackTime = Time.time;
+            }
         }
     }
 

@@ -927,6 +927,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795866394}
   m_CullTransparentMesh: 0
+--- !u!1 &928186745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 928186747}
+  - component: {fileID: 928186746}
+  m_Layer: 0
+  m_Name: SharedGunShots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &928186746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928186745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02952463a57f4c789b7b0a84de3d144e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSize: 100
+  _shotPrefab: {fileID: 6141422149091515011, guid: 839523db2ec855446b41391e88684fd5,
+    type: 3}
+  _shotsParentObject: {fileID: 928186745}
+--- !u!4 &928186747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928186745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1316825110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,12 +1627,12 @@ PrefabInstance:
     - target: {fileID: 7416328684607593176, guid: b06394ea0cf82fb4da149915a2018c1e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.93
       objectReference: {fileID: 0}
     - target: {fileID: 7416328684607593176, guid: b06394ea0cf82fb4da149915a2018c1e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7416328684607593176, guid: b06394ea0cf82fb4da149915a2018c1e,
         type: 3}
