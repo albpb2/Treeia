@@ -6,8 +6,8 @@ public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField] 
     private int _pointsPerRemainingSecond = 10;
-    
-    private int _currentLevel = 4;
+
+    private int _currentLevel = -1;
 
     private string[] _levelSceneNames =
     {
@@ -22,10 +22,10 @@ public class LevelManager : Singleton<LevelManager>
     private int[] _secondsPerPuddlePerLevel =
     {
         15,
-        10,
+        15,
         20,
-        20,
-        20,
+        14,
+        17,
         20
     };
 

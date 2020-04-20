@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthPoints: 5
-  _hitPoints: 10
+  _hitPoints: 5
   _hitZoneCollider: {fileID: 0}
   _valuePoints: 5
   _followPlayer: 0

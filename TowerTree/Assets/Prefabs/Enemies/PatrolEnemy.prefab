@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59165c05f171af64c8fb687330df6139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthPoints: 5
+  _healthPoints: 10
   _hitPoints: 10
   _hitZoneCollider: {fileID: 3350031203736102540}
   _valuePoints: 5
