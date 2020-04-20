@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : Singleton<Player>
 {
+    public const int MaxHealthPoints = 100;
+    
     private const int InitialStamina = 100;
     private const int MaxStamina = 100;
     private const float StaminaFillRatio = 5;
@@ -18,6 +20,8 @@ public class Player : Singleton<Player>
     private MainCharacterController _mainCharacterController;
     private int _waterCount;
     private float _stamina = InitialStamina;
+
+    public float HealthPoints => _healthPoints;
 
     protected override void Awake()
     {

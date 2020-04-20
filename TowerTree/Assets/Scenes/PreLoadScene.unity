@@ -934,7 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21923392, g: 0.4716981, b: 0.17577429, a: 1}
+  m_Color: {r: 0.28838763, g: 0.754717, b: 0.19579923, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2513,6 +2513,11 @@ PrefabInstance:
       propertyPath: _gunImage
       value: 
       objectReference: {fileID: 2092918277}
+    - target: {fileID: 5373537613908082220, guid: 75639f768f9d14341bb5cb1dbc206a74,
+        type: 3}
+      propertyPath: _hpBar
+      value: 
+      objectReference: {fileID: 607426902}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75639f768f9d14341bb5cb1dbc206a74, type: 3}
 --- !u!1001 &5114583058015105279
