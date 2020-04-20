@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerManager : MonoBehaviour
+public class TimerManager : Singleton<TimerManager>
 {
     [SerializeField] 
     private GameObject _timerBarPrefab;
@@ -12,6 +11,7 @@ public class TimerManager : MonoBehaviour
     private GameObject[] _subTimerBackgrounds;
     private GameObject[] _timerBars;
     private Image _currentSubTimer;
+    private Tree _tree;
     private TimerStates _currentSubTimerState;
     private int _currentSubTimerIndex;
     private int _targetWaterCount;
@@ -24,6 +24,14 @@ public class TimerManager : MonoBehaviour
     private int _completedMilestones;
 
     public float RemainingTime => _remainingTime;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+        _timerBackground = GameObject.Find("TimerBackground");
+        _timerBorder = GameObject.Find("TimerBorder");
+    }
 
     void Update()
     {
@@ -63,33 +71,15 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        var tree = FindObjectOfType<Tree>();
-        if (tree != null)
-        {
-            tree.TreeWatered += CompleteMilestone;
-        }
-    }
-
-    private void OnDisable()
-    {
-        var tree = FindObjectOfType<Tree>();
-        if (tree != null)
-        {
-            tree.TreeWatered -= CompleteMilestone;
-        }
-    }
-
     public void SetLevelTimer(int puddlesCount)
     {
-        _timerBackground = GameObject.Find("TimerBackground");
-        _timerBorder = GameObject.Find("TimerBorder");
+        _tree = FindObjectOfType<Tree>();
+        _tree.TreeWatered += CompleteMilestone;
+        
         _timerBackgroundScaleX = _timerBackground.transform.localScale.x;
         _timerBackgroundWidth = _timerBackground.GetComponent<RectTransform>().rect.width * _timerBackgroundScaleX;
         _leftTimerBackgroundX = _timerBackground.transform.position.x - (_timerBackgroundWidth / 2);
         
-        CleanUp();
         _targetWaterCount = puddlesCount;
         _subTimerBackgrounds = new GameObject[_targetWaterCount];
         _timerBars = new GameObject[_targetWaterCount];
@@ -133,6 +123,27 @@ public class TimerManager : MonoBehaviour
         _started = true;
     }
 
+    public void Reset()
+    {
+        if (_subTimerBackgrounds != null)
+        {
+            for (var i = 0; i < _subTimerBackgrounds.Length; i++)
+            {
+                Destroy(_subTimerBackgrounds[i].gameObject);
+            }
+        }
+        
+        if (_timerBars != null)
+        {
+            for (var i = 0; i < _timerBars.Length; i++)
+            {
+                Destroy(_timerBars[i].gameObject);
+            }
+        }
+        
+        _timerBackground.SetActive(true);
+    }
+
     public void CompleteMilestone()
     {
         _completedMilestones++;
@@ -141,6 +152,7 @@ public class TimerManager : MonoBehaviour
 
         if (_completedMilestones == _targetWaterCount)
         {
+            StopTimer();
             LevelManager.Instance.SetUpLevelCompletion();
         }
         else
@@ -180,25 +192,6 @@ public class TimerManager : MonoBehaviour
         {
             // Shouldn't reach here as when the level is completed we'll stop the timer automatically
             StopTimer();
-        }
-    }
-
-    private void CleanUp()
-    {
-        if (_subTimerBackgrounds != null)
-        {
-            for (var i = 0; i < _subTimerBackgrounds.Length; i++)
-            {
-                Destroy(_subTimerBackgrounds[i].gameObject);
-            }
-        }
-        
-        if (_timerBars != null)
-        {
-            for (var i = 0; i < _timerBars.Length; i++)
-            {
-                Destroy(_timerBars[i].gameObject);
-            }
         }
     }
 }

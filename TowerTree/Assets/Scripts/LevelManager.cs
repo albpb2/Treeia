@@ -81,7 +81,8 @@ public class LevelManager : Singleton<LevelManager>
 
     private IEnumerator StartLevel()
     {
-        yield return new WaitForSeconds(2);
+        TimerManager.Instance.Reset();
+        yield return new WaitForSeconds(.5f);
         var timerManager = FindObjectsOfType<TimerManager>();
         timerManager[0].SetLevelTimer(_puddlesCountPerLevel[_currentLevel]);
         timerManager[0].StartTimer(_secondsPerPuddlePerLevel[_currentLevel]);
