@@ -40,6 +40,7 @@ public class MainCharacterGun : MonoBehaviour
 
     public int BulletsCount => _bullets;
     public bool InfiniteBullets => _infiniteBullets;
+    public Gun EquippedGun => _equippedGun;
 
     private void Awake()
     {
