@@ -415,7 +415,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Congratulations! You've made it to the top of the tower
+  m_Text: 'Congratulations! The tree has grown up again,
+
+    and you''ve saved the
+    land!'
 --- !u!222 &1119237935
 CanvasRenderer:
   m_ObjectHideFlags: 0
