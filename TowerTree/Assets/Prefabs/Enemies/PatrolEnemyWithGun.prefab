@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 433d8d36814ee564e805abeff570b437, type: 3}
-  m_Color: {r: 1, g: 0.6462264, b: 0.6462264, a: 1}
+  m_Color: {r: 0.44250622, g: 0.46041328, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   _maxPlayerDistanceToShoot: 30
   _maxPlayerDistanceToIgnore: 15
   _maxPlayerDistanceToIgnoreInAnyAngle: 10
-  _shotColor: {r: 0.6037736, g: 0.21359916, b: 0.21359916, a: 0.98039216}
+  _shotColor: {r: 0.21265395, g: 0.21092917, b: 0.5660378, a: 0.98039216}
   _gunTriangle: {fileID: 616449633255492637}
 --- !u!1 &2806765173733206038
 GameObject:
@@ -333,7 +333,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dd79a3fa5ea823448941db8dc454bce5, type: 3}
-  m_Color: {r: 1, g: 0.5990566, b: 0.5990566, a: 1}
+  m_Color: {r: 0.4284559, g: 0.4237718, b: 0.8396226, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
