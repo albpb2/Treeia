@@ -11,25 +11,25 @@ public class LevelManager : Singleton<LevelManager>
 
     private string[] _levelSceneNames =
     {
-        //"Scenes/Level1",
-        "Scenes/Level3",
+        "Scenes/Level1",
         "Scenes/Level2",
         "Scenes/Level3",
+        "Scenes/Level4",
     };
 
     private int[] _secondsPerPuddlePerLevel =
     {
-        //15,
+        15,
         10,
         20,
-        10,
+        20,
     };
 
     private int[] _puddlesCountPerLevel =
     {
-        //3,
-        4,
+        3,
         2,
+        4,
         4,
     };
 
