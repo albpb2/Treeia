@@ -11,29 +11,32 @@ public class LevelManager : Singleton<LevelManager>
 
     private string[] _levelSceneNames =
     {
-        // "Scenes/Level1",
-        // "Scenes/Level2",
-        // "Scenes/Level3",
+        "Scenes/Level1",
+        "Scenes/Level2",
+        "Scenes/Level3",
         "Scenes/Level4",
         "Scenes/Level5",
+        "Scenes/Level6",
     };
 
     private int[] _secondsPerPuddlePerLevel =
     {
-        // 15,
-        // 10,
-        // 20,
+        15,
+        10,
         20,
         20,
+        20,
+        20
     };
 
     private int[] _puddlesCountPerLevel =
     {
-        // 3,
-        // 2,
-        // 4,
+        3,
+        2,
+        4,
         4,
         5,
+        6
     };
 
     public int CurrentLevel => _currentLevel;
@@ -56,6 +59,8 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
+            const int pointForWinning = 50;
+            GameManager.Instance.AddPoints(pointForWinning);
             GameManager.Instance.Win();
         }
     }
