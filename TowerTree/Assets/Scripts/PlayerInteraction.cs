@@ -33,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Interact()
     {
-        var collider = Physics2D.OverlapCircle(_playerCollider.transform.position, 2, _interactiveLayerMask);
+        var collider = Physics2D.OverlapCircle(_playerCollider.transform.position, .25f, _interactiveLayerMask);
         if (collider != null)
         {
             switch (collider.tag)
