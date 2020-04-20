@@ -2118,6 +2118,11 @@ PrefabInstance:
       propertyPath: _levelNumberText
       value: 
       objectReference: {fileID: 639142357}
+    - target: {fileID: 5373537613908082220, guid: 75639f768f9d14341bb5cb1dbc206a74,
+        type: 3}
+      propertyPath: _bulletsCountText
+      value: 
+      objectReference: {fileID: 4967992}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75639f768f9d14341bb5cb1dbc206a74, type: 3}
 --- !u!1001 &5114583058015105279

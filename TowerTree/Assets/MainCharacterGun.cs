@@ -38,6 +38,9 @@ public class MainCharacterGun : MonoBehaviour
     private GameObject[] _gunShotsPool;
     private AudioSource _audioSource;
 
+    public int BulletsCount => _bullets;
+    public bool InfiniteBullets => _infiniteBullets;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -77,6 +80,8 @@ public class MainCharacterGun : MonoBehaviour
             _gunShotsPool[i] = Instantiate(_gunShotPrefab, _gunShotsRoot.transform);
             _gunShotsPool[i].SetActive(false);
         }
+        
+        SetGun(_defaultGun);
     }
 
     void Update()
